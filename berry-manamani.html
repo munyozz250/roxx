@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berry Manamani — Links</title>
+<style>
+  :root{
+    --ink:#1B2A4A;
+    --paper:#EFE7D8;
+    --paper-dark:#E4DBC8;
+    --mustard:#D9A441;
+    --brick:#B0413E;
+    --graphite:#6B6862;
+    --white:#FFFDF8;
+  }
+
+  @font-face{
+    font-family:'STK-Slab';
+    src:local('Roboto Slab');
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(217,164,65,0.08), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(176,65,62,0.08), transparent 45%);
+    min-height:100vh;
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:40px 16px 80px;
+  }
+
+  .booklet{
+    width:100%;
+    max-width:420px;
+  }
+
+  /* ---- Header ---- */
+  .profile{
+    text-align:center;
+    color:var(--paper);
+    margin-bottom:32px;
+    padding-top:8px;
+  }
+  .avatar{
+    width:76px;height:76px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--mustard), var(--brick));
+    margin:0 auto 16px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Roboto Slab', 'Georgia', serif;
+    font-size:28px;
+    font-weight:700;
+    color:var(--ink);
+    border:3px solid var(--paper);
+  }
+  .profile h1{
+    font-family:'Roboto Slab', 'Georgia', serif;
+    font-weight:700;
+    font-size:26px;
+    letter-spacing:0.01em;
+    margin:0 0 6px;
+  }
+  .profile p{
+    margin:0;
+    font-size:14px;
+    color:#C9BFA8;
+    letter-spacing:0.02em;
+  }
+  .profile .route-line{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+    color:#8892AE;
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+  }
+  .route-line::before,.route-line::after{
+    content:'';
+    height:1px;
+    width:32px;
+    background:#3A4A6E;
+  }
+
+  /* ---- Ticket stubs ---- */
+  .stub-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .stub{
+    position:relative;
+    display:block;
+    text-decoration:none;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:10px;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    box-shadow:0 6px 0 rgba(0,0,0,0.18), 0 10px 20px rgba(0,0,0,0.25);
+    transform:translateY(0);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    overflow:hidden;
+    cursor:pointer;
+    border:none;
+    width:100%;
+    font-family:inherit;
+    text-align:left;
+  }
+  .stub:active{
+    transform:translateY(4px);
+    box-shadow:0 2px 0 rgba(0,0,0,0.18), 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  /* perforation notches */
+  .stub::before, .stub::after{
+    content:'';
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:16px;height:16px;
+    background:var(--ink);
+    border-radius:50%;
+  }
+  .stub::before{ left:-8px; }
+  .stub::after{ right:74px; }
+
+  .stub-num{
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:11px;
+    color:var(--graphite);
+    writing-mode:vertical-rl;
+    text-orientation:mixed;
+    letter-spacing:0.08em;
+    padding-right:12px;
+    border-right:1.5px dashed #C9BFA8;
+    flex-shrink:0;
+  }
+
+  .stub-body{
+    flex:1;
+    min-width:0;
+  }
+  .stub-title{
+    font-weight:700;
+    font-size:16px;
+    margin:0 0 3px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .stub-sub{
+    font-size:12.5px;
+    color:var(--graphite);
+    margin:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .stub-tear{
+    flex-shrink:0;
+    width:60px;
+    text-align:center;
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--brick);
+    padding-left:14px;
+  }
+  .stub-tear span{
+    display:block;
+    font-size:16px;
+    margin-bottom:2px;
+  }
+
+  /* tear animation on click */
+  .stub.tearing{
+    animation:tear 0.4s ease forwards;
+  }
+  @keyframes tear{
+    0%{ transform:translateY(0) rotate(0deg); }
+    40%{ transform:translateY(2px) rotate(-1.5deg); }
+    100%{ transform:translateY(0) scale(0.98) rotate(0deg); opacity:0.85; }
+  }
+
+  .footer-note{
+    text-align:center;
+    margin-top:36px;
+    color:#5C6688;
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+
+  @media (max-width:380px){
+    .stub-sub{ display:none; }
+    .stub-tear{ width:48px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .stub, .stub.tearing{ animation:none !important; transition:none !important; }
+  }
+
+  .stub:focus-visible{
+    outline:3px solid var(--mustard);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="booklet">
+
+  <div class="profile">
+    <div class="avatar">BM</div>
+    <h1>Berry Manamani</h1>
+    <p>Creator &amp; content</p>
+    <div class="route-line">All stops</div>
+  </div>
+
+  <!-- ============================================
+       LINK CONFIG
+       Edit this array to change the 3-5 links shown.
+       id: stable identifier used for click counting
+       title / sub: what the visitor sees
+       url: destination
+  ============================================ -->
+  <div class="stub-list" id="stubList"></div>
+
+  <p class="footer-note">Printed on today's route · berrymanamani.link</p>
+</div>
+
+<script>
+(function(){
+
+  // ---------- 1. Configure your links here ----------
+  const LINKS = [
+    { id: "instagram", title: "Follow on Instagram",  sub: "Photos, reels & behind the scenes", url: "https://instagram.com/berrymanamani" },
+    { id: "tiktok",    title: "Follow on TikTok",      sub: "Latest videos",                     url: "https://tiktok.com/@berrymanamani" },
+    { id: "contact",   title: "Get in touch",          sub: "Bookings & collabs",                url: "https://wa.me/000000000" }
+  ];
+
+  // ---------- 2. Render ticket stubs ----------
+  const list = document.getElementById('stubList');
+  LINKS.forEach((link, i) => {
+    const num = String(i + 1).padStart(2, '0');
+    const el = document.createElement('button');
+    el.className = 'stub';
+    el.type = 'button';
+    el.setAttribute('data-link-id', link.id);
+    el.setAttribute('aria-label', link.title);
+    el.innerHTML = `
+      <span class="stub-num">STOP ${num}</span>
+      <span class="stub-body">
+        <span class="stub-title">${escapeHtml(link.title)}</span>
+        <span class="stub-sub">${escapeHtml(link.sub || '')}</span>
+      </span>
+      <span class="stub-tear"><span>&rarr;</span>OPEN</span>
+    `;
+    el.addEventListener('click', () => handleLinkClick(link, el));
+    list.appendChild(el);
+  });
+
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function handleLinkClick(link, el){
+    recordClick(link.id);
+    el.classList.add('tearing');
+    setTimeout(() => {
+      window.open(link.url, '_blank', 'noopener,noreferrer');
+    }, 220);
+  }
+
+  // ---------- 3. Aggregate-only analytics ----------
+  // Records: total page views, total clicks per link, device-type mix,
+  // and referrer source. Nothing here identifies an individual visitor,
+  // stores an IP, resolves a city, or flags "return" visits.
+  //
+  // This is a client-side stub for the template. For a real deployment,
+  // POST these events to your own backend (e.g. a small serverless
+  // function + database, or a sheet via Apps Script) so counts persist
+  // across visitors and devices instead of living in one browser.
+
+  function detectDeviceType(){
+    const ua = navigator.userAgent;
+    if (/tablet|ipad/i.test(ua)) return 'tablet';
+    if (/mobile|android|iphone/i.test(ua)) return 'mobile';
+    return 'desktop';
+  }
+
+  function getStats(){
+    try{
+      return JSON.parse(localStorage.getItem('linkstub_stats')) || {
+        pageViews: 0,
+        clicksByLink: {},
+        deviceMix: { mobile: 0, desktop: 0, tablet: 0 },
+        referrers: {}
+      };
+    }catch(e){
+      return { pageViews: 0, clicksByLink: {}, deviceMix: { mobile:0, desktop:0, tablet:0 }, referrers: {} };
+    }
+  }
+
+  function saveStats(stats){
+    localStorage.setItem('linkstub_stats', JSON.stringify(stats));
+  }
+
+  function recordPageView(){
+    const stats = getStats();
+    stats.pageViews += 1;
+
+    const device = detectDeviceType();
+    stats.deviceMix[device] = (stats.deviceMix[device] || 0) + 1;
+
+    const ref = document.referrer ? new URL(document.referrer).hostname : 'direct';
+    stats.referrers[ref] = (stats.referrers[ref] || 0) + 1;
+
+    saveStats(stats);
+  }
+
+  function recordClick(linkId){
+    const stats = getStats();
+    stats.clicksByLink[linkId] = (stats.clicksByLink[linkId] || 0) + 1;
+    saveStats(stats);
+  }
+
+  recordPageView();
+
+  // Expose a read-only snapshot for the dashboard (Week 2) to consume
+  // once it's wired to a real backend.
+  window.__linkstubStats = getStats;
+
+})();
+</script>
+
+</body>
+</html>
